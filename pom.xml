@@ -36,8 +36,8 @@
 			<muleVersion>${mule.version}</muleVersion>
 			<username>ksemereab</username>
 			<password>Equbiye1988</password>
-			<environment>Sandbox</environment>
-			<applicationName>my-cicd-test-api</applicationName>
+			<environment>${env}</environment>
+			<applicationName>${appname}</applicationName>
 			<businessGroup>user</businessGroup>
 			<workerType>Micro</workerType>
 			<workers>1</workers>
