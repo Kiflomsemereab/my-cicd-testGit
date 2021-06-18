@@ -34,7 +34,7 @@
 		<cloudHubDeployment>
 			<uri>https://anypoint.mulesoft.com</uri>
 			<muleVersion>${mule.version}</muleVersion>
-			<username>${anypoint.username}</username>
+			<username>ksemereab</username>
 			<password>${anypoint.password}</password>
 			<environment>Sandbox</environment>
 			<applicationName>my-cicd-test-api</applicationName>
