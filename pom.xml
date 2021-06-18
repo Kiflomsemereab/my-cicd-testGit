@@ -38,9 +38,9 @@
 			<password>Equbiye1988</password>
 			<environment>Sandbox</environment>
 			<applicationName>${appname}</applicationName>
-			<businessGroup>user</businessGroup>
-			<workerType>Micro</workerType>
-			<workers>1</workers>
+			<businessGroup>${business}</businessGroup>
+			<workerType>${vCore}</workerType>
+			<workers>${workers}</workers>
 			<objectStoreV2>true</objectStoreV2>
 		</cloudHubDeployment>
 	</configuration>
