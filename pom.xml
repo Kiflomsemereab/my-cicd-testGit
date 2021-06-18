@@ -36,7 +36,7 @@
 			<muleVersion>${mule.version}</muleVersion>
 			<username>ksemereab</username>
 			<password>Equbiye1988</password>
-			<environment>${env}</environment>
+			<environment>Sandbox</environment>
 			<applicationName>${appname}</applicationName>
 			<businessGroup>user</businessGroup>
 			<workerType>Micro</workerType>
