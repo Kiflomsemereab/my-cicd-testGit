@@ -31,9 +31,9 @@
 				<extensions>true</extensions>
 				<configuration>
 					<cloudHubDeployment>
-						<deploymentType>cloudhub</deploymentType>
+						<!--<deploymentType>cloudhub</deploymentType>
+						<muleHome>https://anypoint.mulesoft.com/cloudhub/#/console/applications/cloudhub/my-cicd-test-api/dashboard?domain=my-cicd-test-api<muleHome> -->
 						<applicationName>my-cicd-test-api</applicationName>
-						<!--<muleHome>https://anypoint.mulesoft.com/cloudhub/#/console/applications/cloudhub/my-cicd-test-api/dashboard?domain=my-cicd-test-api<muleHome> -->
 						<uri>https://anypoint.mulesoft.com</uri>
 						<muleVersion>${mule.version}</muleVersion>
 						<username>ksemereab</username>
