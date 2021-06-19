@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:ftp="http://www.mulesoft.org/schema/mule/ftp"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/ftp http://www.mulesoft.org/schema/mule/ftp/current/mule-ftp.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd">
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="f4f8e443-518e-4230-8b37-00e8ed52339e" >
-		<http:listener-connection host="0.0.0.0" port="8082" />
+		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
+	<ftp:config name="FTP_Config" doc:name="FTP Config" doc:id="7ef387dd-43f9-4830-9286-029254a0bf29" >
+		<ftp:connection host="${FTP.Hostname}" username="${FTP.Username}" password="${FTP.Password}" port="${FTP.Port}"/>
+	</ftp:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="f936f352-ce04-4036-b716-415f4e896b7e" file="api\secure.properties" />
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="7844dcf0-3b92-43dc-b683-92256b5ec424" >
+		<salesforce:basic-connection username="${salesforce.username}" password="${salesforce.password}" securityToken="${salesforce.token}" />
+	</salesforce:sfdc-config>
+	<email:smtp-config name="Email_SMTP" doc:name="Email SMTP" doc:id="21edcd7d-ca10-4959-a130-8bf3a5b82895" >
+		<email:smtp-connection host="gmail.com" user="kiflom.semreab" password="Dant@Armata" />
+	</email:smtp-config>
 	<flow name="my-cicd-test-apiFlow" doc:id="a0f689a5-0698-4563-9269-c5ae818afd86" >
 		<http:listener doc:name="Listener" doc:id="3061be5a-0959-4ec2-a2cb-00858f694846" config-ref="HTTP_Listener_config" path="/cicd"/>
 		<ee:transform doc:name="Transform Message" doc:id="76250b47-100a-4a26-8b64-bae968662e4e" >
@@ -15,9 +28,34 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
-"message:" ++ "hello Yonas ante qunicha"]]></ee:set-payload>
+payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<ftp:write doc:name="Write" doc:id="18ead25e-01ff-491b-a804-7ecb758553f9" config-ref="FTP_Config" path="/htdocs/kifu/training/myfirstSecure.txt"/>
+		<ee:transform doc:name="Transform Message" doc:id="a3088f93-089a-4049-9c22-5307f29447e4" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="salsData" ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
 		<logger level="INFO" doc:name="end" doc:id="f2abafac-bb11-4c80-a4a6-961eae3eb3a7" />
+	</flow>
+	<flow name="my-cicd-test-apiFlow1" doc:id="1437031d-aef8-4033-94f4-e6bf5d8aa1a3" >
+		<http:listener doc:name="Listener" doc:id="5b90d03e-ec06-4132-9e29-f2cd2b323a1f" config-ref="HTTP_Listener_config" path="/salesforce"/>
+		<salesforce:query doc:name="Query" doc:id="fd92e605-d747-47a6-82f1-914bf86b2216" config-ref="Salesforce_Config">
+			<salesforce:salesforce-query ><![CDATA[select id, phone, type from account]]></salesforce:salesforce-query>
+		</salesforce:query>
+		<ee:transform doc:name="Transform Message" doc:id="12963dc5-34fd-45fe-b891-4015ddce7cd1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
 	</flow>
 </mule>

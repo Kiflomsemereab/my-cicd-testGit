@@ -9,7 +9,6 @@
 
 	<name>my-cicd-test-api</name>
 	<url>http://maven.apache.org</url>
-	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -30,20 +29,20 @@
 				<artifactId>mule-maven-plugin</artifactId>
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
-	<configuration>
-		<cloudHubDeployment>
-			<uri>https://anypoint.mulesoft.com</uri>
-			<muleVersion>${mule.version}</muleVersion>
-			<username>ksemereab</username>
-			<password>Equbiye1988</password>
-			<environment>Sandbox</environment>
-			<applicationName>${appname}</applicationName>
-			<businessGroup>${business}</businessGroup>
-			<workerType>${vCore}</workerType>
-			<workers>${workers}</workers>
-			<objectStoreV2>true</objectStoreV2>
-		</cloudHubDeployment>
-	</configuration>
+				<configuration>
+					<cloudHubDeployment>
+						<uri>https://anypoint.mulesoft.com</uri>
+						<muleVersion>${mule.version}</muleVersion>
+						<username>ksemereab</username>
+						<password>Equbiye1988</password>
+						<environment>Sandbox</environment>
+						<applicationName>${appname}</applicationName>
+						<businessGroup>${business}</businessGroup>
+						<workerType>${vCore}</workerType>
+						<workers>${workers}</workers>
+						<objectStoreV2>true</objectStoreV2>
+					</cloudHubDeployment>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -59,6 +58,30 @@
 			<groupId>org.mule.connectors</groupId>
 			<artifactId>mule-sockets-connector</artifactId>
 			<version>1.2.1</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-ftp-connector</artifactId>
+			<version>1.5.3</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.connectors</groupId>
+			<artifactId>mule-salesforce-connector</artifactId>
+			<version>10.10.7</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-file-connector</artifactId>
+			<version>1.3.4</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-email-connector</artifactId>
+			<version>1.4.1</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
