@@ -14,7 +14,7 @@ http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/em
 	<ftp:config name="FTP_Config" doc:name="FTP Config" doc:id="7ef387dd-43f9-4830-9286-029254a0bf29" >
 		<ftp:connection host="${FTP.Hostname}" username="${FTP.Username}" password="${FTP.Password}" port="${FTP.Port}"/>
 	</ftp:config>
-	<configuration-properties doc:name="Configuration properties" doc:id="f936f352-ce04-4036-b716-415f4e896b7e" file="dev.properties" />
+	<configuration-properties doc:name="Configuration properties" doc:id="f936f352-ce04-4036-b716-415f4e896b7e" file="dev.yaml" />
 	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="7844dcf0-3b92-43dc-b683-92256b5ec424" >
 		<salesforce:basic-connection username="${salesforce.username}" password="${salesforce.password}" securityToken="${salesforce.token}" />
 	</salesforce:sfdc-config>
